@@ -1,0 +1,242 @@
+Manager:
+<Manager@ScreenManager>:
+    PancakeswapScreen:
+    # . . . 
+    # Future Exchanges screens
+    # . . .
+    SettingsScreen:
+
+
+# Pancakeswap exchange screen
+<PancakeswapScreen@Screen>:
+    name:'pcs'
+    Display_PCS:
+# Apeswap exchange screen
+
+<Display_PCS@GridLayout>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            # self here refers to the widget i.e BoxLayout
+            pos: self.pos
+            size: self.size
+            
+    cols:1
+    TopMenu:
+    Main_PCS:
+
+<TopMenu@GridLayout>:
+    cols:3
+    size_hint: 1, 0.15
+    ScrollView:
+        Exchanges:
+            size_hint: None, 1
+            width: self.minimum_width
+    Button:
+        text: 'Donate'
+        color: 1,0.9,0, 1
+        background_color: (1, 1, 1, 1.0)
+        size_hint: 0.30, 1
+        size: '100dp', '40dp'
+        on_release: app.root.current = 'donate'
+
+    Button:
+        text: 'Setting'
+        color: 'black'
+        background_color: (1, 1, 1, 1.0)
+        size_hint: 0.30, 1
+        size: '100dp', '40dp'
+        on_release: app.root.current = 'setting'
+                
+
+
+<Main_PCS>:
+    cols:2
+    GridLayout:
+        cols: 1
+        padding: root.height/8
+        spacing: 20
+        BoxLayout:
+            Image: 
+                source: "pcs_icon.png"    
+        GridLayout:    
+            cols:1
+            Label:
+                text: 'amount (BNB):'
+                color: 'black'
+            TextInput:
+                id: amount
+                multiline:False
+            Label:
+                text: 'Token Address:'
+                color: 'black'
+            TextInput:
+                id: address
+                multiline:False
+        
+        GridLayout:
+            cols: 1
+            size_hint: 1, 0.2
+            Button:
+                text:'Snipe'
+                color: 'black'
+                on_press: root.sniper(amount, address)
+    
+    ScrollView:
+        size_hint: 0.15, 1
+        SideMenu_PCS:
+            size_hint: 1, None
+            height: self.minimum_height
+
+# Exchanges---------------------------------------------------------------------------------------------------------------   
+<Exchanges@GridLayout>:
+    rows:1
+    Button:
+        size_hint: None, 1
+        color: 'black'
+        text: 'PancakeSwap'
+        width: root.height
+        on_release: app.root.current ='pcs'
+    
+# SIDE MENUS (PAIRS)
+# SIDE MENUS (PAIRS)
+# SIDE MENUS (PAIRS)
+# SIDE MENUS (PAIRS)
+
+# Side Menu Pancakeswap------------------------------------------------------------------------------------------------------
+<SideMenu_PCS@GridLayout>:
+    cols:1
+    ToggleButton:
+        text: '0x/BNB'
+        size_hint: 1, None
+        color: 'black'
+        height: '150dp'
+        group:'pcs'
+        on_press: root.select_pair_BNB(self)
+
+    ToggleButton:
+        text: '0x/BUSD'
+        size_hint: 1, None
+        color: 'black'
+        height: '150dp'
+        group:'pcs'
+        on_press: root.select_pair_BUSD(self)
+
+        
+    ToggleButton:
+        text: '0x/USDC'
+        size_hint: 1, None
+        color: 'black'
+        height: '150dp'
+        group:'pcs'
+        on_press: root.select_pair_USDC(self)
+
+    ToggleButton:
+        text: '0x/USDT'
+        size_hint: 1, None
+        color: 'black'
+        height: '150dp'
+        group:'pcs'
+        on_press: root.select_pair_USDT(self)
+
+    ToggleButton:
+        text: '0x/CAKE '
+        size_hint: 1, None
+        color: 'black'
+        height: '150dp'
+        group:'pcs'
+        on_press: root.select_pair_CAKE(self)
+
+# Settings ---------------------------------------------------------------------------------------------------------------
+
+<SettingsScreen@Screen>:
+    name: 'setting'
+    Display_STG:
+
+<Display_STG@GridLayout>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            # self here refers to the widget i.e BoxLayout
+            pos: self.pos
+            size: self.size        
+    cols:1
+    TopMenu:
+    SettingPage:
+
+
+
+<SettingPage>:
+    padding: root.height/7
+    spacing: 20
+    orientation: 'vertical'
+    Label:
+        text: 'Private Key:'
+        color: 'black'
+    GridLayout:
+        cols: 2
+        #orientation: 'horizontal'
+        TextInput:
+            id: privatekey
+            text: 'YOUR_PRIVATE_KEY_HERE'
+            multiline:False
+        Button:
+            size_hint: 0.20, 1
+            text:'Save'
+            color: 'black'
+            on_release: root.set_pk(privatekey)
+    Label:
+        text: 'BSC Node:'
+        color: 'black'
+    GridLayout:
+        cols: 2    
+        TextInput:
+            id: bscnode
+            text: 'https://bsc-dataseed.binance.org/'
+            multiline:False
+        Button:
+            size_hint: 0.20, 1
+            text:'Save'
+            color: 'black'
+            on_release: root.set_provider(bscnode)
+    Label:
+        text: 'ETH Node:'
+        color: 'black'
+    TextInput:
+        id: ethnode
+        text:'Not available yet'
+        multiline:False
+    Label:
+        text: 'MATIC Node:'
+        color: 'black'
+    TextInput:
+        id: maticnode
+        text:'Not available yet'
+        multiline:False
+
+
+
+<SettingsScreen@Screen>:
+    name: 'donate'
+    Display_Donate:
+
+<Display_Donate@BoxLayout>:
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            # self here refers to the widget i.e BoxLayout
+            pos: self.pos
+            size: self.size        
+    cols:1
+    TopMenu:
+    DonatePage:
+
+<DonatePage@BoxLayout>:
+    orientation:'vertical'
+    Label:
+        color: 'black'
+        text:'If this Sniper was useful to you, please consider leaving a donation to support the developer: \n0xa64a0EdB8D7Cce083eA391a09DA8FAe02eB1b1E4'
